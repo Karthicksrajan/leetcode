@@ -10,8 +10,46 @@ Output: 7 -> 0 -> 8
 Explanation: 342 + 465 = 807.
 **************************************************************************************************************************/
 
+var addTwoNumbers = function(l1, l2) {
+    var quotient = 0, counter = 0;
+    var tempArray = [];
+    
+    while (l1 != null || l2 != null || quotient > 0)
+    {
+        var num1 = l1 != null ? l1.val : 0;
+        var num2 = l2 != null ? l2.val : 0;
+        l1 = l1 != null ? l1.next : null;
+        l2 = l2 != null ? l2.next : null;
+        
+        var sum = quotient + num1 + num2;
+        quotient = Math.floor(sum/10);
+        var remainder = sum % 10;
+        tempArray.push(remainder);
+    }
+    
+    function constructNode()
+    {
+        var tempObj = {};
+        tempObj.val = tempArray[counter];
+        
+        if(counter < (tempArray.length - 1))
+        {
+            counter++;
+            tempObj.next = constructNode();
+        }
+        else
+        {
+            tempObj.next = null;
+        }
+        return tempObj;
+    }
+    
+    return constructNode();
+};
 
-/* The Solution below will fail on a usecase where it reaches the maximum size of integer (more than 16 digits) */
+/**************************************************************************************************************************
+ The Solution below is another solution but will fail on a usecase where it reaches the maximum size of integer (more than 16 digits) 
+**************************************************************************************************************************/
 
 /**
  * Definition for singly-linked list.
